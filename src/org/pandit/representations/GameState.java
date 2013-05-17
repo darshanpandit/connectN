@@ -43,8 +43,25 @@ public class GameState implements Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return "GameState [blackBlocks=" + Arrays.deepToString(blackBlocks)
-				+ ", whiteBlocks=" + Arrays.deepToString(whiteBlocks) + "]";
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		for(int i=blackBlocks.length-1;i>-1;i--){
+			for(int j=0;j<blackBlocks[0].length;j++){
+				if(blackBlocks[i][j])
+					buffer.append(" X ");
+				else if(whiteBlocks[i][j])
+					buffer.append(" O ");
+				else
+					buffer.append(" = ");
+			}
+			buffer.append("\n");
+		}
+		buffer.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		return buffer.toString();
+		
+		//return "GameState [blackBlocks=" + Arrays.deepToString(blackBlocks)
+		//		+ ", whiteBlocks=" + Arrays.deepToString(whiteBlocks) + "]";
 	}
 
 	/*
@@ -169,7 +186,7 @@ public class GameState implements Cloneable {
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException {
 		GameState gameState = new GameState(this.blackBlocks.length, this.blackBlocks[0].length);
 		boolean[][] newBlackBlocks = gameState.getBlackBlocks();
 		boolean[][] newWhiteBlocks = gameState.getWhiteBlocks();
@@ -200,12 +217,15 @@ public class GameState implements Cloneable {
 				config.getColumnSize());
 		
 		gameState.setBlack(0,0);
-		gameState.setWhite(0,1);
-		gameState.setBlack(0,2);
+		gameState.setBlack(0,1);
+		gameState.setWhite(0,2);
 		
 		gameState.setWhite(1,0);
+		gameState.setWhite(1,1);
+		gameState.setBlack(1,2);
 		
-		gameState.setBlack(2, 0);
+		gameState.setBlack(2,0);
+		gameState.setWhite(2,1);
 		
 		
 		AlphaBetaPrunning alphaBetaPrunning = new AlphaBetaPrunning(1, config,

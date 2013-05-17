@@ -113,7 +113,7 @@ public class GameConfig {
 		}
 		
 		
-		System.out.println("Total childs : "+childList.size());	
+		//System.out.println("Total childs : "+childList.size());	
 		//returns the set
 		return childList;
 		

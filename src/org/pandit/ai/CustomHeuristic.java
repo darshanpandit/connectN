@@ -33,7 +33,7 @@ public class CustomHeuristic implements Heuristic {
 		//Draw state occurs when the board is filled completely and we have no other valid move possible.
 		boolean[][] bitSets = gameState.getOccupancyMatrix();
 		boolean isDraw = true;
-		for(int i=0; i<bitSets.length;i++){
+		for(int i=0; i<bitSets[0].length;i++){
 			if(gameConfig.findTopIndex(bitSets, i)!=-1)
 				isDraw = false;
 		}
@@ -59,7 +59,15 @@ public class CustomHeuristic implements Heuristic {
 
 	@Override
 	public boolean isTerminal(GameState gameState) {
-
+		boolean[][] bitSets = gameState.getOccupancyMatrix();
+		boolean isDraw = true;
+		for(int i=0; i<bitSets[0].length;i++){
+			if(gameConfig.findTopIndex(bitSets, i)!=-1)
+				isDraw = false;
+		}
+		if(isDraw)
+			return true;
+		
 		List<boolean[]> list = new LinkedList<boolean[]>();
 		list.addAll(getRowBitSets(gameState.getBlackBlocks()));
 		list.addAll(getColumnBitSets(gameState.getBlackBlocks()));
@@ -131,10 +139,11 @@ public class CustomHeuristic implements Heuristic {
 					if (!bs[j])
 						break;
 				
-					score += Math.pow(10, (j - i - 1) );
+					score += Math.pow(10, (j - i + 1) );
 				
 			}
-			i = j;
+			//i = j;
+			i++;
 		}
 		return score;
 	}
