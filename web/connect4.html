@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <title>Connect4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+		.celler {
+		background-image: url("./img/empty.jpg");
+		background-repeat: no-repeat;
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		padding: 0;
+		}
+		.cellhead {
+		background-image: url("./img/down.jpg");
+		background-repeat: no-repeat;
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		padding: 0;
+		}
+		.cellfoot {
+		background-image: url("./img/down.jpg");
+		background-repeat: no-repeat;
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		padding: 0;
+		}
+		table,th, td
+		{
+		border: 2px solid #000;
+		}
+	</style>
+  </head>
+  
+  <body>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <h3 style="color:#aaaaaa">cOnnect4</h3>
+      </div>
+    </div>
+    <div class="container-fluid">
+      
+      <div class="row-fluid" style="margin-top:100px;">
+        <div class="well well-small">
+        <label>Rows:</label>
+        	<select id="rowSelector">
+  				<option value="4" selected="selected">4</option>
+  				<option value="5">5</option>
+  				<option value="6">6</option>
+  				<option value="7">7</option>
+                <option value="8">8</option>
+			</select>
+         <label>Columns:</label>
+            <select id="colSelector">
+  				<option value="4" selected="selected">4</option>
+  				<option value="5">5</option>
+  				<option value="6">6</option>
+  				<option value="7">7</option>
+                <option value="8">8</option>
+			</select>
+            <hr>
+        	<div class="badge badge-inverse" onClick="addTableElements();" style="cursor:pointer;">
+            	PLAY!
+            </div>
+        </div>
+      </div>
+  
+      <div class="row-fluid">
+        <div class="hero-unit" style="text-align:center">
+         <div class="grid" style="margin: 0 auto; width: 40%">
+            <table class="dyGrid" id="dyGrid">
+            </table>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </body>
+  
+<script>		
+		
+	function initGame() {
+		var rsize = document.getElementById("rowSelector");
+		var rsOpt = rsize.options[rsize.selectedIndex].value;
+		var csize = document.getElementById("colSelector");
+		var csOpt = csize.options[csize.selectedIndex].value;
+		rsOpt = rsOpt - (-1);
+		csOpt = csOpt - (-1);
+		for (var i =1;i<=rsOpt;i++) {
+			for (var j=1;j<=rsOpt;j++) {
+				setEmpty(i,j);
+			}
+		}
+	}
+	
+	function renderMat(arr) {
+		for (var i =1;i<=val;i++) {
+			for (var j=1;j<=valt;j++) {
+				if (arr[val][valt] == 0) {
+					setEmpty(val,valt);
+				}
+				else if (arr[val][valt] == 1) {
+					setBlue(val,valt);
+				}
+				else if (arr[val][valt] == 2) {
+					setRed(val,valt);
+				}
+			}
+		}
+	}
+	
+	function topClick() {
+		document.getElementById("as");
+	}
+	
+	function setEmpty(row,column) {
+		$("#celler" + row + column).css('background-image', 'url("./img/empty.jpg")');
+	}
+	function setRed(row,column) {
+		$("#celler" + row + column).css('background-image', 'url("./img/red.jpg")');
+	}
+	function setBlue(row,column) {
+		$("#celler" + row + column).css('background-image', 'url("./img/blue.jpg")');
+	}
+	
+	function addTableElements(){
+		var rsize = document.getElementById("rowSelector");
+		var rsOpt = rsize.options[rsize.selectedIndex].value;
+		var csize = document.getElementById("colSelector");
+		var csOpt = csize.options[csize.selectedIndex].value;
+		rsOpt = rsOpt - (-1);
+		
+		for(var i=0; i<=rsOpt;i++)
+			{
+				if(i==0) {
+					$( "<tr class='rowerLow'></tr>" ).appendTo( ".dyGrid" );
+				}
+				else if( i== rsOpt) {
+					$( "<tr class='rowerHigh'></tr>" ).appendTo( ".dyGrid" );				
+				}
+				else {
+					$( "<tr class='rower rower" + i + "'></tr>" ).appendTo( ".dyGrid" );
+					for(var j=0; j<csOpt;j++)
+					{
+						var jj = j - (-1);
+						$( "<td id='coler coler" + j + "'><div class='celler' id='celler" + i + jj + "'><div></td>" ).appendTo( ".rower" + i );
+					}
+				}
+			}
+			for(var j=0; j<csOpt;j++)
+				{
+					var jj = j - (-1);
+					$( "<td id='coler coler" + j + "'><div class='cellhead cellhead" + jj + "'><div></td>" ).appendTo( ".rowerLow" );
+				}
+			for(var j=0; j<csOpt;j++)
+				{
+				   var jj = j - (-1);
+					$( "<td id='coler coler" + j + "'><div class='cellfoot cellfoot" + jj + "'><div></td>" ).appendTo( ".rowerHigh" );
+				}
+	}
+</script>
+
+</html>
+
